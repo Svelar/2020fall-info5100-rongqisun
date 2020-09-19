@@ -1,5 +1,7 @@
 package Assignments.Assignment2;
 
+import java.util.*;
+
 /**
  * The deadline of this assignment is 09/25/2020 23:59 PST.
  * Please feel free to contact Yafei and Yaqi for any questions.
@@ -25,13 +27,25 @@ class Employee {
 
 
     public String getName() {
+
         return name;
     }
 
     // Setter for `name`. Set `name` data
 
     public void setName(String name) {
+
         this.name = name;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+
+    //Extra credit
+    public void raiseSalary(double byPercent){
+        this.salary= this.salary*(1+byPercent);
     }
 }
 
@@ -40,7 +54,7 @@ enum Gender {
     FEMALE;
 }
 
-public class Assignment2-1 {
+public class Assignment2_1 {
     // Assignment
 
     /**
@@ -49,8 +63,11 @@ public class Assignment2-1 {
      * If the salary is more than 8900, the Social Security Tax is 6.2% of 106,800.
      */
     public double socialSecurityTax(Employee employee) {
-
-
+        if (employee.salary <= 8900.0) {
+            return 0.062 * employee.salary;
+        } else {
+            return 0.062 * 106800;
+        }
     }
 
     /**
@@ -60,7 +77,15 @@ public class Assignment2-1 {
      * If the employee is between 50 and 60(exclusive), rate is 5% of salary; If the employee is above 60, rate is 6% of salary.
      */
     public double insuranceCoverage(Employee employee) {
-        //write your code here
+        if (employee.age < 35) {
+            return 0.03 * employee.salary;
+        } else if (employee.age >= 35 && employee.age <= 50) {
+            return 0.04 * employee.salary;
+        } else if (employee.age > 50 && employee.age < 60) {
+            return 0.05 * employee.salary;
+        } else {
+            return 0.06 * employee.salary;
+        }
     }
 
     /**
@@ -69,7 +94,16 @@ public class Assignment2-1 {
      * John Alice Jenny
      */
     public void sortSalary(Employee e1, Employee e2, Employee e3) {
-        //write your code here
+        List<Employee> employees = new ArrayList<>();
+        employees.add(e1);
+        employees.add(e2);
+        employees.add(e3);
+        employees.sort(Comparator.comparing(Employee::getSalary));
+        for (Employee employee :
+                employees) {
+            System.out.println(employee.name);
+        }
+
     }
 
     /**
@@ -79,10 +113,11 @@ public class Assignment2-1 {
      * Try to add a new method in Employee class: public void raiseSalary(double byPercent)
      */
     public void tripleSalary(Employee employee) {
-        //write your code here
+        employee.salary= employee.salary*3;
+
     }
 
-    //Extra credit
+
 
     /**
      * I have written some code below. What I want is to swap two Employee objects.
@@ -96,10 +131,30 @@ public class Assignment2-1 {
      */
     /*
      write your understanding here.
+
+     Because Employee is Class, it is reference type. The original Employee a and Employee b are the first one reference to the object
+     on the heat. Only take Employee a for example. IN the method 'swap(a, b)', this a is the second copy, so only swap the second copy,
+     not the original object. Although all two point to the same allocation on the heat, not the same object.
+
+     BTW,I draw a sketch on https://t.me/Svelarr/20, Please check.
+
+
+
     */
     public static void main(String[] args) {
         Employee a = new Employee("Jenny", 20, Gender.FEMALE, 2000);
         Employee b = new Employee("John", 30, Gender.MALE, 2500);
+        Employee c = new Employee("Sun", 24, Gender.MALE, 19900);
+        Assignment2_1 Assignment = new Assignment2_1();
+        Assignment.sortSalary(a,b,c);
+        Assignment.tripleSalary(a);
+        System.out.println(a.salary);
+        a.raiseSalary(0.5);
+        System.out.println(a.salary);
+        System.out.println(Assignment.socialSecurityTax(b));
+        System.out.println(Assignment.insuranceCoverage(c));
+
+        System.out.println();
         System.out.println("Before: a=" + a.getName());
         System.out.println("Before: b=" + b.getName());
         swap(a, b);
@@ -113,3 +168,4 @@ public class Assignment2-1 {
         y = temp;
     }
 }
+
