@@ -167,5 +167,23 @@ public class Assignment2_1 {
         x = y;
         y = temp;
     }
+
+/*
+  Output:
+
+  Jenny
+  John
+  Sun
+  6000.0
+  9000.0
+  155.0
+  597.0
+
+  Before: a=Jenny
+  Before: b=John
+  After: a=Jenny
+  After: b=John*/
+
+
 }
 
