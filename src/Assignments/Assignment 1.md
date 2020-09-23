@@ -2,7 +2,7 @@
 
 ## 1. Design a course management system (Like Canvas)
 
--Student
+-NeuStudent
 
 - Data: NUID, Password, Name
 
@@ -10,7 +10,7 @@
 
   
 
--Professor
+-NeuProfessor
 
 - Data: NUID, Password
 
@@ -35,8 +35,8 @@
   
 
 ```pseudocode
-Student Sun;
-Professor Siva;
+NeuStudent Sun;
+NeuProfessor Siva;
 Course info5100;
 Course info5100lab;
 System Canvas;
@@ -193,14 +193,14 @@ else Order Another
 
 ## 4. Design a course registration platform.
 
--Student
+-NeuStudent
 
 - Data: NUID, Password, Name
-- Behaviors: logIn, searchCourse, registerCourse, dropCourse, addToWaitlist, seeCalendar
+- Behaviors: logIn, searchCourse, whetherHaveSeat, registerCourse, whetherHaveConflict, dropCourse, confirmCourses, addToWaitlist, seeCalendar
 
 
 
--Instructor
+-NeuInstructor
 
 - Data: NUID, Password, Name
 - Behaviors: logIn,  approveApplication
@@ -223,17 +223,21 @@ else Order Another
 
 
 ```pseudocode
-Student Sun;
-Instructor Siva;
+NeuStudent Sun;
+NeuInstructor Siva;
 Platform NeuCoRe;
 Sun.logIn(NUID, Password);
 Course info5100-1 = Sun.searchCourse(classTime, InstructorName, Location);
-if RegistrationAmount < info5100-1.Capacity
+if (whetherHaveSeat(RegistrationAmount, info5100-1.Capacity)==true)
 	Sun.registerCourse(info5100-1);
 	//Sun.registerCourse(info5100-Lab-1);
-	Sun.seeCalendar(NeuCoRe.Calendar);
+	if (whetherHaveConflict(AllCoursesTime)==false)
+		sun.confirmCourses(info5100-1);
+	else
+		Register another course;
 	if Sun dont like the course
 		Sun.dropCourse(info5100-1);
+	Sun.seeCalendar(NeuCoRe.Calendar);
 else
 	Sun.addToWaitlist(info5100-1);
 	Siva.logIn(NUID, Password);
@@ -274,7 +278,7 @@ else
 
 
 
--Food Delivery
+-FoodDeliver
 
 - Data: Name
 - Behaviors: Delivery
@@ -301,7 +305,7 @@ if food isInstock
 		Wen.requestCancelOrder(Cart);
 		Uber.Refund(Sum(Food.Price), Wen);
 	else
-		FoodDelivery Chen;
+		FoodDeliver Chen;
 		UberEat.allocateDelivery(Cart, Chen);
 		Chen.Delivery(Cart, Wen.Address);
 		if Wen is satisfied with the foods
