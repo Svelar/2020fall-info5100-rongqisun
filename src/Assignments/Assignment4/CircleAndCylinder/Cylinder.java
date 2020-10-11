@@ -22,6 +22,8 @@ public class Cylinder extends Circle{
         this.height = height;
     }
 
+    private double baseArea=super.getArea();
+
     public double getHeight() {
         return height;
     }
@@ -34,7 +36,6 @@ public class Cylinder extends Circle{
         return super.getArea()*height;
     }
 
-    private double baseArea=super.getArea();
 
     public double getBaseArea() {
         return baseArea;
